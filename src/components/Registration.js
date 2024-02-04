@@ -6,6 +6,7 @@ import axios from "axios";
 const Registration = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [type, setType] = useState("");
@@ -82,6 +83,17 @@ const Registration = () => {
                   className="form-control"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-md-12">
+                <label className="labels">Lozinka</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>

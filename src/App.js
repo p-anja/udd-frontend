@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useEffect } from "react";
@@ -13,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import Registration from "./components/Registration";
 import AdvancedSearch from "./components/AdvancedSearch";
+import Indexing from "./components/Indexing";
 
 axios.defaults.baseURL = "http://localhost:8080/api/";
 
@@ -25,6 +21,12 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route
+            key={uuidv4()}
+            exact
+            path="/indexing"
+            element={[<Navbar key={uuidv4()} />, <Indexing key={uuidv4()} />]}
+          />
           <Route
             key={uuidv4()}
             exact
