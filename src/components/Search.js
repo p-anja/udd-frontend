@@ -2,7 +2,6 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 import axios from "axios";
-import CandidateList from "./CandidateList";
 
 const Search = () => {
   const [text, setText] = useState("");

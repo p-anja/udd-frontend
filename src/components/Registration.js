@@ -32,7 +32,7 @@ const Registration = () => {
         city: city,
         address: address,
         username: username,
-        password: "sifra",
+        password: password,
       })
       .then((res) => {
         if (res.data.error) {
