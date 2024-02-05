@@ -5,7 +5,6 @@ import axios from "axios";
 
 const Search = () => {
   const [text, setText] = useState("");
-  const [phraseQuery, setPhraseQuery] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [results, setResults] = useState([]);
   const propertiesToCheck = [
@@ -50,7 +49,7 @@ const Search = () => {
     });
   };
 
-  const downloadFile = async (fileName: string) => {
+  const downloadFile = async (fileName) => {
     try {
       const response = await axios.get(
         axios.defaults.baseURL + "file/" + fileName,
@@ -85,10 +84,6 @@ const Search = () => {
     }
   };
 
-  // const handleChangePhraseQuery = () => {
-  //   setPhraseQuery(!phraseQuery);
-  // };
-
   useEffect(() => {
     setResults([]);
   }, [text]);
@@ -114,20 +109,6 @@ const Search = () => {
                 </div>
               </div>
 
-              {/* <div className="row mt-3">
-                <div className="col-md-12">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={phraseQuery}
-                      onChange={handleChangePhraseQuery}
-                      id="flexCheckDefault"
-                    />
-                    <label className="form-check-label">Phrase Query</label>
-                  </div>
-                </div>
-              </div> */}
               <div className="mt-5 mb-5 text-center">
                 {isPending && <label>Pretraga je u toku...</label>}
                 {!isPending && (
