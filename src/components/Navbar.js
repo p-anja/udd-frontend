@@ -23,8 +23,8 @@ const Navbar = () => {
           </a>
         </li>
         <li className="nav-item" key={3}>
-          <a className="nav-link" href="/combinedSearch">
-            Kombinovana pretraga
+          <a className="nav-link" href="/advancedSearch">
+            Napredna pretraga
           </a>
         </li>
       </ul>

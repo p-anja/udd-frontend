@@ -45,7 +45,7 @@ function App() {
           <Route
             key={uuidv4()}
             exact
-            path="/combinedSearch"
+            path="/advancedSearch"
             element={[
               <Navbar key={uuidv4()} />,
               <AdvancedSearch key={uuidv4()} />,
