@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 const Search = () => {
   const [text, setText] = useState("");
   const [phraseQuery, setPhraseQuery] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const [results, setResults] = useState([]);
+  const propertiesToCheck = [
+    "name",
+    "surname",
+    "governmentName",
+    "governmentType",
+    "contractContent",
+    "lawContent",
+  ];
 
   const Validate = () => {
     if (text === "") return true;
@@ -31,25 +40,63 @@ const Search = () => {
         });
       } else {
         setIsPending(false);
-        setText("");
         Swal.fire({
           icon: "success",
           title: "Success!",
           text: res.data.response,
         });
-        console.log(res.data);
+        setResults(res.data.content);
       }
     });
   };
 
-  const handleChangePhraseQuery = () => {
-    setPhraseQuery(!phraseQuery);
+  const downloadFile = async (fileName: string) => {
+    try {
+      const response = await axios.get(
+        axios.defaults.baseURL + "file/" + fileName,
+        {
+          responseType: "arraybuffer", // Set responseType to arraybuffer
+        }
+      );
+      const blob = new Blob([response.data]);
+
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName; // Set the filename for the download
+      document.body.appendChild(a);
+
+      // Trigger the download
+      a.click();
+
+      // Remove the download link
+      document.body.removeChild(a);
+
+      // Revoke the Object URL to free up resources
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error downloading file",
+      });
+    }
   };
+
+  // const handleChangePhraseQuery = () => {
+  //   setPhraseQuery(!phraseQuery);
+  // };
+
+  useEffect(() => {
+    setResults([]);
+  }, [text]);
 
   return (
     <>
-      <div className="h-100 d-flex justify-content-center align-items-center container rounded bg-white">
-        <div className="">
+      <div className="h-100 w-100 d-flex justify-content-center align-items-center container rounded bg-white">
+        <div className="w-100">
           <div className="md-5">
             <div className="p-3 py-5">
               <div className="mb-3">
@@ -67,7 +114,7 @@ const Search = () => {
                 </div>
               </div>
 
-              <div className="row mt-3">
+              {/* <div className="row mt-3">
                 <div className="col-md-12">
                   <div className="form-check">
                     <input
@@ -80,8 +127,8 @@ const Search = () => {
                     <label className="form-check-label">Phrase Query</label>
                   </div>
                 </div>
-              </div>
-              <div className="mt-5 text-center">
+              </div> */}
+              <div className="mt-5 mb-5 text-center">
                 {isPending && <label>Pretraga je u toku...</label>}
                 {!isPending && (
                   <button
@@ -94,6 +141,33 @@ const Search = () => {
                   </button>
                 )}
               </div>
+              {!!results.length &&
+                results.map((result) => {
+                  let contentToShow = "";
+                  let fileName = "";
+                  for (let prop of propertiesToCheck) {
+                    if (
+                      result[prop] &&
+                      result[prop].toLowerCase().includes(text.toLowerCase())
+                    ) {
+                      contentToShow = result[prop];
+                      if (result[prop] == "lawContent")
+                        fileName = result["lawFilename"];
+                      else fileName = result["contractFilename"];
+                    }
+                  }
+                  return (
+                    <div className="border p-5 w-50" key={uuidv4()}>
+                      <p>{contentToShow.substring(0, 600)} ...</p>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => downloadFile(fileName)}
+                      >
+                        Preuzmi
+                      </button>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

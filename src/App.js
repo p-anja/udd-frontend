@@ -24,6 +24,15 @@ function App() {
           <Route
             key={uuidv4()}
             exact
+            path="/registration"
+            element={[
+              <Navbar key={uuidv4()} />,
+              <Registration key={uuidv4()} />,
+            ]}
+          />
+          <Route
+            key={uuidv4()}
+            exact
             path="/indexing"
             element={[<Navbar key={uuidv4()} />, <Indexing key={uuidv4()} />]}
           />
@@ -40,15 +49,6 @@ function App() {
             element={[
               <Navbar key={uuidv4()} />,
               <AdvancedSearch key={uuidv4()} />,
-            ]}
-          />
-          <Route
-            key={uuidv4()}
-            exact
-            path="/registration"
-            element={[
-              <Navbar key={uuidv4()} />,
-              <Registration key={uuidv4()} />,
             ]}
           />
         </Routes>
