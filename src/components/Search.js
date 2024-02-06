@@ -139,7 +139,12 @@ const Search = () => {
                   }
                   return (
                     <div className="border p-5 w-50" key={uuidv4()}>
-                      <p>{contentToShow.substring(0, 600)} ...</p>
+                      <p>
+                        {result["highlight"]
+                          ? result["highlight"]
+                          : contentToShow.substring(0, 600)}{" "}
+                        ...
+                      </p>
                       <button
                         className="btn btn-secondary"
                         onClick={() => downloadFile(fileName)}
