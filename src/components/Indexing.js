@@ -53,7 +53,7 @@ const Indexing = () => {
         <div className="md-5">
           <div className="row mt-3">
             <div className="col-md-6">
-              <label className="labels">Ugovor</label>
+              <label className="labels">Priložite ugovor</label>
               <input
                 enctype="multipart/form-data"
                 type="file"
@@ -65,7 +65,7 @@ const Indexing = () => {
               />
             </div>
             <div className="col-md-6">
-              <label className="labels">Zakon</label>
+              <label className="labels">Priložite zakon</label>
               <input
                 enctype="multipart/form-data"
                 type="file"
@@ -86,6 +86,7 @@ const Indexing = () => {
                   disabled={Validate()}
                   className="btn btn-primary profile-button"
                   type="button"
+                  style={{ backgroundColor: "gray", color: "white", fontSize: "16px" }}
                 >
                   Potvrda
                 </button>

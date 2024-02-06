@@ -125,13 +125,13 @@ const Search = () => {
           <div className="md-5">
             <div className="p-3 py-5">
               <div className="mb-3">
-                <h4 className="text-right">Pretraga</h4>
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">Tekst</label>
+                  <label className="labels">Unesite pojam koji želite da pronađete</label>
                   <input
                     type="text"
+                    style={{ fontSize: '16px' }}
                     className="form-control"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -157,6 +157,7 @@ const Search = () => {
                     disabled={Validate()}
                     className="btn btn-primary profile-button"
                     type="button"
+                    style={{ backgroundColor: "gray", color: "white", fontSize: "16px" }}
                   >
                     Potvrda
                   </button>

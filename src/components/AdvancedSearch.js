@@ -99,7 +99,6 @@ const AdvancedSearch = () => {
               <div className="col">
                 <div className="row mt-3">
                   <div className="col-md-12">
-                    <label className="labels">Kategorija</label>
                     <select
                       id="InputCategory"
                       name="firstCategory"
@@ -134,7 +133,6 @@ const AdvancedSearch = () => {
                 )}
                 <div className="row mt-3">
                   <div className="col-md-12">
-                    <label className="labels">Operator</label>
                     <select
                       id="InputOperator"
                       name="operator"
@@ -154,7 +152,6 @@ const AdvancedSearch = () => {
 
                 <div className="row mt-3">
                   <div className="col-md-12">
-                    <label className="labels">Kategorija</label>
                     <select
                       id="InputCategory"
                       name="secondCategory"
@@ -197,6 +194,8 @@ const AdvancedSearch = () => {
                   onClick={(e) => onSubmit(e)}
                   className="btn btn-primary profile-button"
                   type="button"
+                  style={{ backgroundColor: "gray", color: "white", fontSize: "16px" }}
+
                   disabled={
                     firstCategory == "" ||
                     secondCategory == "" ||

@@ -146,6 +146,8 @@ const Registration = () => {
                   disabled={Validate()}
                   className="btn btn-primary profile-button"
                   type="button"
+                  style={{ backgroundColor: "gray", color: "white", fontSize: "16px" }}
+
                 >
                   Potvrda
                 </button>
