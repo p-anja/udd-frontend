@@ -15,6 +15,10 @@ const Search = () => {
     "contractContent",
     "lawContent",
   ];
+  const [isChecked, setPhraseQuery] = useState(false);
+  const phraseDto = {
+    query: text,
+  };
 
   const Validate = () => {
     if (text === "") return true;
@@ -29,24 +33,46 @@ const Search = () => {
       keywords: [text],
     };
 
-    axios.post(axios.defaults.baseURL + "search/simple", dto).then((res) => {
-      if (res.data.error) {
-        setIsPending(false);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: res.data.error,
-        });
-      } else {
-        setIsPending(false);
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: res.data.response,
-        });
-        setResults(res.data.content);
-      }
-    });
+    if(isChecked){
+      axios.post(axios.defaults.baseURL + "search/phrase", phraseDto).then((res) => {
+        if (res.data.error) {
+          setIsPending(false);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: res.data.error,
+          });
+        } else {
+          setIsPending(false);
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: res.data.response,
+          });
+          setResults(res.data.content);
+        }
+      });
+  }else{
+      axios.post(axios.defaults.baseURL + "search/simple", dto).then((res) => {
+        if (res.data.error) {
+          setIsPending(false);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: res.data.error,
+          });
+        } else {
+          setIsPending(false);
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: res.data.response,
+          });
+          setResults(res.data.content);
+        }
+      });
+    }
+    
   };
 
   const downloadFile = async (fileName) => {
@@ -83,6 +109,10 @@ const Search = () => {
       });
     }
   };
+  const handleChangePhraseQuery = () => {
+    setPhraseQuery(!isChecked);
+  };
+
 
   useEffect(() => {
     setResults([]);
@@ -108,6 +138,16 @@ const Search = () => {
                   />
                 </div>
               </div>
+              <div className="row mt-3">
+                            <div className="col-md-12">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value={isChecked} onChange={handleChangePhraseQuery}id="flexCheckDefault" />
+                                    <label className="form-check-label">
+                                    Upiti fraza
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
               <div className="mt-5 mb-5 text-center">
                 {isPending && <label>Pretraga je u toku...</label>}
